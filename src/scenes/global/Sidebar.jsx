@@ -1,16 +1,17 @@
 import { useState } from "react";
-import { ProSidebar, Menu, MenuItem } from "react-pro-sidebar";
-import "react-pro-sidebar/dist/css/styles.css";
+import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
+// import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
-import HomeOutlinedIcon from "@mui/icons-material/LightModeOutlined";
+
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
 import ReceiptOutlinedIcon from "@mui/icons-material/ReceiptOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import CalendarOutlinedIcon from "@mui/icons-material/CalendarOutlined";
-import HelpOutlinedIcon from "@mui/icons-material/HelpOutlined";
+import CalendarOutlinedIcon from "@mui/icons-material/CalendarTodayOutlined";
+import HelpOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
 import BarChartOutlinedIcon from "@mui/icons-material/BarChartOutlined";
 import PieChartOutlinedIcon from "@mui/icons-material/PieChartOutlined";
 import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
@@ -20,47 +21,55 @@ import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+
   return (
     <MenuItem
       active={selected === title}
-      style={{ color: colors.grey[100] }}
-      onClick={() => setSelected(title)}
       icon={icon}
+      onClick={() => setSelected(title)}
+      component={<Link to={to} />}
+      style={{ color: colors.grey[100] }}
     >
       <Typography>{title}</Typography>
-      <Link to={to} />
     </MenuItem>
   );
 };
 
-const Sidebar = () => {
+const MySidebar = () => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
 
   return (
-    <Box
-      sx={{
-        "& .pro-sidebar-inner": {
-          background: `${colors.primary[400]} !important`,
-        },
-        "& .pro-icon-wrapper": {
-          backgroundColor: "transparent !important",
-        },
-        "& .pro-inner-item": {
-          padding: "5px 35px 5px 20px !important",
-        },
-        "& .pro-inner-item:hover": {
-          color: "#868dfb !important",
-        },
-        "& .pro-menu-item.active": {
-          color: "#6870fa !important",
-        },
-      }}
-    >
-      <ProSidebar collapsed={isCollapsed}>
-        <Menu iconShape="square">
+    <Box sx={{ height: "100vh" }}>
+      <Sidebar
+        collapsed={isCollapsed}
+        rootStyles={{
+          backgroundColor: colors.primary[400],
+          height: "100%",
+          // Можно добавить другие стили для контейнера
+        }}
+      >
+        <Menu
+          iconShape="square"
+          menuItemStyles={{
+            button: ({ active }) => ({
+              backgroundColor: active ? colors.primary[600] : "transparent",
+              color: active ? colors.greenAccent[500] : colors.grey[100],
+              padding: "5px 35px 5px 20px",
+              "&:hover": {
+                color: "#868dfb",
+              },
+            }),
+            icon: {
+              color: colors.grey[100],
+            },
+            label: {
+              fontWeight: "bold",
+            },
+          }}
+        >
           {/* LOGO AND MENU ICON */}
           <MenuItem
             onClick={() => setIsCollapsed(!isCollapsed)}
@@ -88,8 +97,8 @@ const Sidebar = () => {
           </MenuItem>
 
           {/* USER */}
-          {isCollapsed && (
-            <Box mb="25px">
+          {!isCollapsed && (
+            <Box mb="25px" textAlign="center">
               <Box display="flex" justifyContent="center" alignItems="center">
                 <img
                   alt="profile-user"
@@ -99,19 +108,17 @@ const Sidebar = () => {
                   style={{ cursor: "pointer", borderRadius: "50%" }}
                 />
               </Box>
-              <Box textAlign="center">
-                <Typography
-                  variant="h2"
-                  color={colors.grey[100]}
-                  fontWeight="bold"
-                  sx={{ m: "10px 0 0 0" }}
-                >
-                  Ed Roh
-                </Typography>
-                <Typography variant="h5" color={colors.greenAccent[500]}>
-                  VP Fancy Admin
-                </Typography>
-              </Box>
+              <Typography
+                variant="h2"
+                color={colors.grey[100]}
+                fontWeight="bold"
+                sx={{ m: "10px 0 0 0" }}
+              >
+                Ed Roh
+              </Typography>
+              <Typography variant="h5" color={colors.greenAccent[500]}>
+                VP Fancy Admin
+              </Typography>
             </Box>
           )}
 
@@ -171,14 +178,14 @@ const Sidebar = () => {
             <Item
               title="Calendar"
               to="/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
+              icon={<CalendarOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
             <Item
               title="FAQ Page"
               to="/faq"
-              icon={<HelpOutlineOutlinedIcon />}
+              icon={<HelpOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -200,7 +207,7 @@ const Sidebar = () => {
             <Item
               title="Pie Chart"
               to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
+              icon={<PieChartOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
@@ -220,9 +227,9 @@ const Sidebar = () => {
             />
           </Box>
         </Menu>
-      </ProSidebar>
+      </Sidebar>
     </Box>
   );
 };
 
-export default Sidebar;
+export default MySidebar;
