@@ -46,7 +46,7 @@ const MySidebar = () => {
       <Sidebar
         collapsed={isCollapsed}
         rootStyles={{
-          backgroundColor: colors.primary[400],
+          backgroundColor: colors.primary[700],
           height: "100%",
           // Можно добавить другие стили для контейнера
         }}
@@ -55,11 +55,12 @@ const MySidebar = () => {
           iconShape="square"
           menuItemStyles={{
             button: ({ active }) => ({
-              backgroundColor: active ? colors.primary[600] : "transparent",
+              backgroundColor: active ? colors.primary[700] : "transparent",
               color: active ? colors.greenAccent[500] : colors.grey[100],
               padding: "5px 35px 5px 20px",
               "&:hover": {
                 color: "#868dfb",
+                backgroundColor: colors.primary[600],
               },
             }),
             icon: {
