@@ -1,10 +1,9 @@
 import { useState } from "react";
 import { Sidebar, Menu, MenuItem } from "react-pro-sidebar";
-// import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { Link } from "react-router-dom";
 import { tokens } from "../../theme";
-
+import { sidebarClasses } from "react-pro-sidebar";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
 import ContactsOutlinedIcon from "@mui/icons-material/ContactsOutlined";
@@ -46,25 +45,27 @@ const MySidebar = () => {
       <Sidebar
         collapsed={isCollapsed}
         rootStyles={{
-          backgroundColor: colors.primary[700],
+          backgroundColor: colors.primary[400],
           height: "100%",
-          // Можно добавить другие стили для контейнера
+          [`.${sidebarClasses.container}`]: {
+            backgroundColor: colors.primary[400], // убираем светлый полупрозрачный фон
+          },
         }}
       >
         <Menu
           iconShape="square"
           menuItemStyles={{
             button: ({ active }) => ({
-              backgroundColor: active ? colors.primary[700] : "transparent",
-              color: active ? colors.greenAccent[500] : colors.grey[100],
+              backgroundColor: active ? "#141b2d" : "transparent",
+              color: active ? "#6870fa" : "#e0e0e0",
               padding: "5px 35px 5px 20px",
               "&:hover": {
                 color: "#868dfb",
-                backgroundColor: colors.primary[600],
+                backgroundColor: "#222b44",
               },
             }),
             icon: {
-              color: colors.grey[100],
+              color: "#e0e0e0",
             },
             label: {
               fontWeight: "bold",
@@ -136,7 +137,7 @@ const MySidebar = () => {
             <Typography
               variant="h6"
               color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
+              sx={{ m: "15px 0 5px 20px", opacity: 0.7 }}
             >
               Data
             </Typography>
