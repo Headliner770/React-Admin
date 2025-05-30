@@ -27,9 +27,14 @@ const Item = ({ title, to, icon, selected, setSelected }) => {
       icon={icon}
       onClick={() => setSelected(title)}
       component={<Link to={to} />}
-      style={{ color: colors.grey[100] }}
     >
-      <Typography>{title}</Typography>
+      <Typography
+        sx={{
+          color: selected === title ? colors.blueAccent[400] : colors.grey[100],
+        }}
+      >
+        {title}
+      </Typography>
     </MenuItem>
   );
 };
@@ -48,7 +53,7 @@ const MySidebar = () => {
           backgroundColor: colors.primary[400],
           height: "100%",
           [`.${sidebarClasses.container}`]: {
-            backgroundColor: colors.primary[400], // убираем светлый полупрозрачный фон
+            backgroundColor: colors.primary[400],
           },
         }}
       >
@@ -56,16 +61,17 @@ const MySidebar = () => {
           iconShape="square"
           menuItemStyles={{
             button: ({ active }) => ({
-              backgroundColor: active ? "#141b2d" : "transparent",
-              color: active ? "#6870fa" : "#e0e0e0",
+              backgroundColor: "transparent",
+              color: active ? colors.blueAccent[400] : colors.grey[100],
               padding: "5px 35px 5px 20px",
               "&:hover": {
-                color: "#868dfb",
-                backgroundColor: "#222b44",
+                color: colors.blueAccent[400],
+                backgroundColor: "transparent",
               },
+              fontWeight: active ? "bold" : "normal",
             }),
             icon: {
-              color: "#e0e0e0",
+              color: colors.grey[100],
             },
             label: {
               fontWeight: "bold",

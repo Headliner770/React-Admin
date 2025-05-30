@@ -171,6 +171,7 @@ const Dashboard = () => {
           backgroundColor={colors.primary[400]}
           overflow="auto"
         >
+          {/* TRANSACTIONS */}
           <Box
             display="flex"
             justifyContent="space-between"
